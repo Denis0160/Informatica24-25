@@ -32,9 +32,7 @@ public class Main {
                     break;
 
                 case 2:
-                    for(int i=0;i<numeri.length;i++){
-                        System.out.println(numeri[i]);
-                    }
+                    visualizza(numeri);
                     break;
 
                 default:
@@ -51,5 +49,39 @@ public class Main {
         }
 
     }
+    private static void visualizza(int[] numeri){
+        int i=0;
+        for(int numero:numeri ){
+
+            if(i==5){
+                i=0;
+                System.out.println();
+            }
+            System.out.printf("%3d", numero);
+            i++;
+
+        }
+        System.out.println();
+
+    }
+
+    /*
+    private static void estrazione(int[] numeri){
+        boolean controllo=true;
+        Random random=new Random();
+        do {
+            for (int i = 0; i < numeri.length; i++) {
+                numeri[i] = random.nextInt();
+
+
+                for (int j = 0; j < numeri.length; j++) {
+                    if (numeri[i] == numeri[j])
+                        controllo = false;
+                }
+            }
+        }while(controllo);
+    }*/
+
+    //cercare un numero all'interno dell'array, e stampare la posizione del numero cercato nell'array
 
 }
