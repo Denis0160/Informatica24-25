@@ -14,11 +14,14 @@ public class Main {
         String [] opzioni={"Scelta" ,
                 "inserimento",
                 "visualizzazione" ,
+                "ricerca",
                 "fine"};
         boolean fine=true;
 
         final int nMax=10;
         final int RANGE=100;
+
+        int cerca;
 
 
         Scanner scanner=new Scanner(System.in);
@@ -34,6 +37,11 @@ public class Main {
                 case 2:
                     visualizza(numeri);
                     break;
+
+                case 3:
+                    System.out.println("Che numero vuoi cercare?\n");
+                    cerca=scanner.nextInt();
+                    ricerca(numeri,cerca);
 
                 default:
                     fine=false;
@@ -63,6 +71,15 @@ public class Main {
         }
         System.out.println();
 
+    }
+    private static void ricerca(int[] numeri, int numero){
+        for(int i=0;i<numeri.length;i++){
+            if(numeri[i]==numero){
+                System.out.println("il numero è nella posizione %d\n",i+1);
+            }else
+                System.out.println("il numero non è stato trovato\n");
+
+        }
     }
 
     /*
