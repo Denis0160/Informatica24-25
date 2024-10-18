@@ -1,9 +1,16 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import static frontScreen.FrontEnd.*;
+
+import frontScreen.FrontEnd;
 import mensola.Libro;
 import mensola.Genere;
+import static utility.Tools.*;
+import java.util.ArrayList;
 
 public class Main {
     private static final int MAX_LIBRI = 20;
@@ -12,8 +19,46 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int nLibri;
+        ArrayList<Libro> mensola=new ArrayList<Libro>();
+        boolean fine=true;
 
-        // Chiedere all'utente quanti libri vuole inserire
+
+        String[] scelta={"Scegli","inserisci libro","visualizza mensola","modifica pagine","cancella libro","visualizza libri","fine"};
+
+        do {
+            switch (menu(scelta, scanner)) {
+                case 1: {
+                    Libro libro = FrontEnd.leggiLibro(scanner);
+                    mensola.add(libro);
+                    break;
+
+                }
+                case 2:{
+                    System.out.println("ecco la mensola\n");
+                    for(Libro i:mensola){
+                        System.out.println("\n"+i.toString());
+                    }
+                    System.out.println("seleziona il numero del libro che vuoi eliminare\n");
+                    int n;
+                    n=scanner.nextInt();
+                    mensola.remove(n);
+                    System.out.println("il libro è stato cancellato");
+                    break;
+                }
+                case 3:{
+                    modificaNumeroPagine(scanner,mensola);
+                    break;
+                }
+
+                default: {
+                    fine = false;
+                    break;
+                }
+            }
+        }while (fine);
+
+
+        /*// Chiedere all'utente quanti libri vuole inserire
         do {
             System.out.println("Quanti libri vuoi inserire? max 20 \n");
             nLibri = scanner.nextInt();
@@ -73,10 +118,10 @@ public class Main {
 
             // Inserisci il libro nella mensola
             mensola[i] = nuovoLibro;
-        }
+        }*/
 
         // Visualizzare i libri inseriti
-        visualizzaLibri();
+        //visualizzaLibri();
     }
 
     // Metodo per controllare se un libro già esiste (stesso titolo e autore)
@@ -97,5 +142,41 @@ public class Main {
                 System.out.println(libro);
             }
         }
+    }
+    private  static void modificaNumeroPagine(Scanner scanner, ArrayList<Libro> mensola) {
+        // Mostra la lista dei libri
+        if (mensola.isEmpty()) {
+            System.out.println("La mensola è vuota!");
+            return;
+        }
+
+        System.out.println("Seleziona il libro per modificare il numero di pagine:");
+        for (int i = 0; i < mensola.size(); i++) {
+            System.out.println("[" + (i + 1) + "] " + mensola.get(i).getTitolo() + " di " + mensola.get(i).getAutore());
+        }
+
+        int indiceLibro = -1;
+        do {
+            System.out.print("Inserisci il numero del libro (1 - " + mensola.size() + "): ");
+            if (scanner.hasNextInt()) {
+                indiceLibro = scanner.nextInt() - 1;
+                if (indiceLibro >= 0 && indiceLibro < mensola.size()) {
+                    break;
+                }
+            }
+            System.out.println("Scelta non valida. Riprova.");
+            scanner.nextLine();  // Consuma il newline residuo
+        } while (true);
+
+        // Chiedi il nuovo numero di pagine
+        System.out.print("Inserisci il nuovo numero di pagine: ");
+        if (scanner.hasNextInt()) {
+            int nuovePagine = scanner.nextInt();
+            mensola.get(indiceLibro).setNumeroPagine(nuovePagine);  // Aggiorna il numero di pagine
+            System.out.println("Il numero di pagine del libro è stato aggiornato!");
+        } else {
+            System.out.println("Numero di pagine non valido!");
+        }
+        scanner.nextLine();  // Consuma il newline residuo
     }
 }

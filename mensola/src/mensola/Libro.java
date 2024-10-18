@@ -28,6 +28,9 @@ public class Libro {
         this.titolo = titolo;
     }
 
+    public int getNumeroPagine() {return numeroPagine;}
+    public void setNumeroPagine(int numeroPagine) {this.numeroPagine = numeroPagine;}
+
     @Override
     public String toString() {
         return String.format("Autore : %s; Titolo : %s; Numero di pagine : %d; Prezzo : %f; Genere : %s; Data : %s\n",

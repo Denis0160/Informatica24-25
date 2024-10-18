@@ -41,7 +41,7 @@ public class Tools {
         do {
             /*Print the interface */
             //Clear the screen
-            clearScreen();
+            //clearScreen();
             System.out.println("=== " + content[0] + " ===");
             //Iterate trough all the elements in the options and print them out
             for(int currentElement = 1; currentElement < content.length; currentElement++)
