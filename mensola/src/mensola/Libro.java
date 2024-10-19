@@ -9,7 +9,7 @@ public class Libro {
     public int numeroPagine;
     public final double costoPerPagina = 0.05;
     public Genere tipologia;
-    public LocalDate dataPubblicazione;
+    //public LocalDate dataPubblicazione;
     private final DateTimeFormatter formattazioneData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public String getAutore() {
@@ -33,7 +33,7 @@ public class Libro {
 
     @Override
     public String toString() {
-        return String.format("Autore : %s; Titolo : %s; Numero di pagine : %d; Prezzo : %f; Genere : %s; Data : %s\n",
-                autore, titolo, numeroPagine, numeroPagine * costoPerPagina, tipologia.toString(), dataPubblicazione.format(formattazioneData));
+        return String.format("Autore : %s; Titolo : %s; Numero di pagine : %d; Prezzo : %f; Genere : %s;\n",
+                autore, titolo, numeroPagine, numeroPagine * costoPerPagina, tipologia.toString());//dataPubblicazione.format(formattazioneData));
     }
 }

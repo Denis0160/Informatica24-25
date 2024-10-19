@@ -23,7 +23,7 @@ public class Main {
         boolean fine=true;
 
 
-        String[] scelta={"Scegli","inserisci libro","visualizza mensola","modifica pagine","cancella libro","visualizza libri","fine"};
+        String[] scelta={"Scegli","inserisci libro","visualizza mensola","modifica pagine","cancella libro","fine"};
 
         do {
             switch (menu(scelta, scanner)) {
@@ -38,15 +38,20 @@ public class Main {
                     for(Libro i:mensola){
                         System.out.println("\n"+i.toString());
                     }
-                    System.out.println("seleziona il numero del libro che vuoi eliminare\n");
-                    int n;
-                    n=scanner.nextInt();
-                    mensola.remove(n);
-                    System.out.println("il libro è stato cancellato");
                     break;
                 }
                 case 3:{
                     modificaNumeroPagine(scanner,mensola);
+                    break;
+                }
+                case 4:{
+                    for (int i = 0; i < mensola.size(); i++) {
+                        System.out.println("[" + (i + 1) + "] " + mensola.get(i).getTitolo() + " di " + mensola.get(i).getAutore());
+                    }
+                    int n;
+                    System.out.println("Inserisci il numero del libro che vuoi cancellare\n");
+                    n=scanner.nextInt();
+                    mensola.remove(n-1);
                     break;
                 }
 
@@ -143,40 +148,18 @@ public class Main {
             }
         }
     }
-    private  static void modificaNumeroPagine(Scanner scanner, ArrayList<Libro> mensola) {
-        // Mostra la lista dei libri
-        if (mensola.isEmpty()) {
-            System.out.println("La mensola è vuota!");
-            return;
-        }
-
+    private static void modificaNumeroPagine(Scanner scanner, ArrayList<Libro> mensola) {
         System.out.println("Seleziona il libro per modificare il numero di pagine:");
         for (int i = 0; i < mensola.size(); i++) {
             System.out.println("[" + (i + 1) + "] " + mensola.get(i).getTitolo() + " di " + mensola.get(i).getAutore());
         }
 
-        int indiceLibro = -1;
-        do {
-            System.out.print("Inserisci il numero del libro (1 - " + mensola.size() + "): ");
-            if (scanner.hasNextInt()) {
-                indiceLibro = scanner.nextInt() - 1;
-                if (indiceLibro >= 0 && indiceLibro < mensola.size()) {
-                    break;
-                }
-            }
-            System.out.println("Scelta non valida. Riprova.");
-            scanner.nextLine();  // Consuma il newline residuo
-        } while (true);
-
-        // Chiedi il nuovo numero di pagine
+        int indiceLibro = scanner.nextInt() - 1;
         System.out.print("Inserisci il nuovo numero di pagine: ");
-        if (scanner.hasNextInt()) {
-            int nuovePagine = scanner.nextInt();
-            mensola.get(indiceLibro).setNumeroPagine(nuovePagine);  // Aggiorna il numero di pagine
-            System.out.println("Il numero di pagine del libro è stato aggiornato!");
-        } else {
-            System.out.println("Numero di pagine non valido!");
-        }
-        scanner.nextLine();  // Consuma il newline residuo
+        int nuovePagine = scanner.nextInt();
+
+        mensola.get(indiceLibro).setNumeroPagine(nuovePagine);
+        System.out.println("Il numero di pagine del libro è stato aggiornato!");
     }
+
 }

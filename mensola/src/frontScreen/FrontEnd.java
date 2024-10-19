@@ -32,10 +32,10 @@ public class FrontEnd {
         int genereIndex = (menu(menuData, keyboard) - 1);
         output.tipologia = generi[genereIndex];
         //Inserimento data
-        System.out.print("Inserire data> ");
-        String dataInput = keyboard.nextLine();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        output.dataPubblicazione = LocalDate.parse(dataInput, formatter);
+        //System.out.print("Inserire data> ");
+        //String dataInput = keyboard.nextLine();
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        //output.dataPubblicazione = LocalDate.parse(dataInput, formatter);
 
         return output;
     }
