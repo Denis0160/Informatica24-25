@@ -13,9 +13,9 @@ public class Main {
         final String[] elenco = {
                 "Libreria",
                 "Inserisci Libro",
-                "Visualizza tutti i libri inseriti",
-                "Modifica pagine libro",
-                "Cancella libro",
+                "visualizza libri scaffale",
+                "cerca libro per titolo",
+                "conta numero per autore",
                 "Visualizza libri di un autore",
                 "visualizza dettagli libro",
                 "Esci"
@@ -62,12 +62,47 @@ public class Main {
                     titolo=keyboard.nextLine();
                     Libro[] titoli=new Libro[5];
 
-                    getIndex(scaffale,titolo,titoli);
+                    try {
+                        getIndex(scaffale,titolo,titoli);
+                        System.out.println("ecco i libri");
+                        for(int i = 0 ;i < titoli.length; i++){
+                            if(titoli[i]!=null)
+                            System.out.println(titoli[i].toString());
+                        }
+                    }catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 4:
+                    String a;
+                    System.out.println("Inserisci il nome dell'autore di cui vuoi contare i libri\n");
+                    a= keyboard.nextLine();
+                    int conta=0;
+                    int j=contaLibriAutore(scaffale,conta,a);
+
+                    if(j!=0){
+                        System.out.println("L'autore ha %d libri\n"+j);
+
+                    }else{
+                        System.out.println("Non ci sono libri di questo autore\n");
+                    }
                     break;
 
+                case 5:
+                    int [] pos=new int[5];
+                    String b;
+                    System.out.println("Inserisci il nome del autore per cui vuoi cercare i libri\n");
+                    b= keyboard.nextLine();
+                    posizione(scaffale,pos,b);
+                    System.out.println("Ecco la posizione dei libri nel scaffale\n");
+                    for(int i=0 ;i< pos.length;i++){
+                        System.out.println(" "+pos[i]);
+                    }
+                    break;
                 default:
                     fine = false;
                     break;
+
             }
         } while (fine);
     }
@@ -120,7 +155,7 @@ public class Main {
         }
     }*/
 
-    private static Libro[] getIndex(Libro[] mensola,String titolo,Libro[ ] titoli){
+    private static Libro[] getIndex(Libro[] mensola,String titolo,Libro[ ] titoli) throws Exception{
         int j=0;
 
         for(int i=0;i< mensola.length;i++){
@@ -133,8 +168,28 @@ public class Main {
             return titoli;
         }
         else {
-            return null;
+            throw new Exception("Libro non trovato");
         }
+    }
+
+    private static int contaLibriAutore(Libro[] mensola, int conta, String a){
+        for(int i = 0; i < mensola.length ; i++){
+            if(mensola[i].autore==a){
+                conta++;
+            }
+        }
+        return conta;
+    }
+
+    private static int[] posizione(Libro[]mensola, int[] i,String a){
+        int k=0;
+        for(int j=0; j< mensola.length;j++){
+            if(mensola[j].autore==a){
+                i[k]=j;
+                k++;
+            }
+        }
+        return i;
     }
 
 }
