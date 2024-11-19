@@ -1,12 +1,23 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args){
-       Punto punto1= new Punto();
-        System.out.println(punto1.toString());
-        Punto punto2=new Punto();
-        Segmento segmento=new Segmento(punto1,punto2);
+        Scanner scanner = new Scanner(System.in);
+        Punto p1,p2;
+        p1=creaPunto(scanner);
+        p2=creaPunto(scanner);
+        Segmento segmento=new Segmento(p1,p2,-1.0);
+        System.out.println(segmento.toString());
+        
 
+    }
+    private static Punto creaPunto(Scanner scanner){
+        System.out.println("Inserisci la x\n");
+        int x=0,y=0;
+        x=scanner.nextInt();
+        System.out.println("Inserisci la y \n");
+        y=scanner.nextInt();;
 
-
-
+        return new Punto(x,y);
     }
 }
