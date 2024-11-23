@@ -64,4 +64,9 @@ public class Punto {
     public String toString() {
         return String.format("x: %d y: %d Quadrante: %d", x, y, quadrante);
     }
+
+
+
+
+
 }

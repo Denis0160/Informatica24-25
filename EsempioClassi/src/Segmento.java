@@ -3,13 +3,13 @@
 public class Segmento {
     private Punto p1;
     private Punto p2;
-    private Double lunghezza;
 
 
-    public Segmento(Punto p1, Punto p2, Double lunghezza){
+
+    public Segmento(Punto p1, Punto p2){
         this.p1=p1;
         this.p2=p2;
-        this.lunghezza=lunghezza;
+
 
     }
     public Punto getP1() {
