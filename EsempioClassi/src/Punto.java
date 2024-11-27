@@ -65,8 +65,9 @@ public class Punto {
         return String.format("x: %d y: %d Quadrante: %d", x, y, quadrante);
     }
 
-
-
-
+    public void traslaPunto(int x, int y){
+        this.x=this.getX()+x;
+        this.y=this.getY()+y;
+    }
 
 }

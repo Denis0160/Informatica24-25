@@ -55,6 +55,13 @@ public class Rettangolo {
                 this.calcolaDiagonale(),this.isRettangolo(),this.area(),this.perimetro());
     }
 
+    public void traslaRettangolo(int x, int y){
+        this.p1.traslaPunto(x, y);
+        this.p2.traslaPunto(x, y);
+    }
+
+
+
 
 
 
