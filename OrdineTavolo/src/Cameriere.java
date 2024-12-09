@@ -1,7 +1,8 @@
 public class Cameriere {
-    String nome;
+    private String nome;
+    private boolean libero;
 
-    public Cameriere(){
+    public Cameriere(String nome, boolean libero) {
         this.nome=nome;
     }
 
@@ -13,5 +14,15 @@ public class Cameriere {
         return nome;
     }
 
+    public void setLibero(boolean libero){
+        this.libero=libero;
+    }
+    public boolean getLibero(){
+        return libero;
+    }
+
+    public String toString(){
+        return String.format("nome cameriere:%s: libero: %s", nome, libero);
+    }
 
 }
