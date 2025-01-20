@@ -1,23 +1,58 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.Objects;
+
 public class Pilota {
     private String nome;
-    private int tempo;  // Tempo per completare la gara in secondi
+    private String cognome;
+    private String nazionalita;
+    private int eta;
 
-    // Costruttore
-    public Pilota(String nome) {
+    public Pilota(String nome, String cognome, String nazionalita, int eta) throws IllegalArgumentException {
+        if (nome == null || cognome == null || nazionalita == null || eta <= 0) {
+            throw new IllegalArgumentException("I parametri non sono validi.");
+        }
         this.nome = nome;
-        this.tempo = new Random().nextInt(180) + 120;  // Genera un tempo tra 120 e 300 secondi
+        this.cognome = cognome;
+        this.nazionalita = nazionalita;
+        this.eta = eta;
     }
 
-    // Getter per il nome
+    @Override
+    public String toString() {
+        return nome + " " + cognome + " (" + eta + " anni, " + nazionalita + ")";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Pilota pilota = (Pilota) obj;
+        return eta == pilota.eta &&
+                Objects.equals(nome, pilota.nome) &&
+                Objects.equals(cognome, pilota.cognome);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome, cognome, eta);
+    }
+
     public String getNome() {
         return nome;
     }
 
-    // Getter per il tempo
-    public int getTempo() {
-        return tempo;
+    public String getCognome() {
+        return cognome;
+    }
+
+    public String getNazionalita() {
+        return nazionalita;
+    }
+
+    public void setNazionalita(String nazionalita) {
+        this.nazionalita = nazionalita;
+    }
+
+    public int getEta() {
+        return eta;
     }
 }

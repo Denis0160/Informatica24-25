@@ -1,46 +1,68 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Gara {
     private String nome;
-    private String risultato;
-    private List<Pilota> piloti;
+    private Pilota vincitore;
+    private List<Auto> autoInGara;
 
     public Gara(String nome) {
-        this.nome = nome;
-        this.piloti = new ArrayList<>();
-        this.risultato = "";
-    }
-
-    public void aggiungiPilota(Pilota pilota) {
-        piloti.add(pilota);
-    }
-
-    public void corriGara(){
-        if (piloti.isEmpty()){
-            System.out.println("Nessun pilota iscritto alla gara!");
-            return;
+        if (nome == null || nome.isEmpty()) {
+            throw new IllegalArgumentException("Il nome della gara non può essere nullo o vuoto.");
         }
-        Random rand = new Random();
-        Pilota vincitore = piloti.get(0);  // Inizialmente consideriamo il primo pilota come vincitore
-        int tempoVincitore = rand.nextInt(181) + 120;  // Tempo tra 120 e 300 secondi
-        System.out.println(vincitore.getNome() + " ha un tempo di " + tempoVincitore + " secondi.");
-        for (Pilota pilota : piloti) {
-            int tempoPilota = rand.nextInt(181) + 120;
-            System.out.println(pilota.getNome() + " ha un tempo di " + tempoPilota + " secondi.");
-            if (tempoPilota < tempoVincitore) {
-                vincitore = pilota;
-                tempoVincitore = tempoPilota;
+        this.nome = nome;
+        this.autoInGara = new ArrayList<>();
+    }
+
+    public void aggiungiAuto(Auto auto) {
+        for (Auto a : autoInGara) {
+            if (a.getPilota().equals(auto.getPilota())) {
+                throw new IllegalArgumentException("Non possono esserci due piloti con lo stesso nome, cognome ed età.");
             }
         }
-        this.risultato = vincitore.getNome();
-        System.out.println("Il vincitore della gara " + nome + " è " + risultato + " con un tempo di " + tempoVincitore + " secondi.");
+        autoInGara.add(auto);
     }
+
+    public void corriGara() {
+        if (autoInGara.isEmpty()) {
+            throw new IllegalStateException("Non ci sono auto in gara.");
+        }
+
+        // Logica semplificata per determinare il vincitore in base alla cilindrata
+        Auto vincitoreAuto = autoInGara.get(0);
+        for (Auto a : autoInGara) {
+            if (a.getCilindrata() > vincitoreAuto.getCilindrata()) {
+                vincitoreAuto = a;
+            }
+        }
+        this.vincitore = vincitoreAuto.getPilota();
+    }
+
     public String getNome() {
         return nome;
     }
-    public String getRisultato() {
-        return risultato;
+
+    public Pilota getVincitore() {
+        return vincitore;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Gara: ").append(nome).append("\n");
+        sb.append("Auto in gara:\n");
+        for (Auto a : autoInGara) {
+            sb.append(a.toString()).append("\n");
+        }
+        sb.append("Vincitore: ").append(vincitore != null ? vincitore.toString() : "Non ancora determinato");
+        return sb.toString();
+    }
+
+    public List<Auto> getAutoInGara() {
+        return autoInGara;
+    }
+
+    public void setAutoInGara(List<Auto> autoInGara) {
+        this.autoInGara = autoInGara;
     }
 }
